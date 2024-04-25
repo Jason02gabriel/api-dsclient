@@ -41,4 +41,10 @@ public class ClientResources {
     public ResponseEntity<ClientDTO> update(@PathVariable Long id, @RequestBody ClientDTO dto){
         return ResponseEntity.ok().body(service.update(dto,id));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        service.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }
