@@ -40,6 +40,13 @@ public class ClientService {
         return new ClientDTO(entity);
     }
 
+    public ClientDTO update(ClientDTO clientDTO, Long id) {
+        Client entity = repository.findById(id).get();
+        copyDtoToEntity(clientDTO,entity);
+        entity = repository.save(entity);
+        return new ClientDTO(entity);
+    }
+
     private void copyDtoToEntity(ClientDTO dto, Client entity) {
         entity.setName(dto.getName());
         entity.setCpf(dto.getCpf());
