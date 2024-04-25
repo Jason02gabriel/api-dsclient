@@ -1,0 +1,1 @@
+INSERT INTO tb_clients (name, cpf, birth_date, income, children) VALUES ('The Lord of the Rings', '060.899.813-38', '2020-07-20T10:00:00Z',600.0,2);
