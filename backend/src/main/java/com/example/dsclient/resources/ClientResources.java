@@ -2,15 +2,17 @@ package com.example.dsclient.resources;
 
 
 import com.example.dsclient.dto.ClientDTO;
-import com.example.dsclient.entities.Client;
-import com.example.dsclient.repository.ClientRepository;
+
 import com.example.dsclient.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @RestController
@@ -21,9 +23,15 @@ public class ClientResources {
     private ClientService service;
 
     @GetMapping
-    public ResponseEntity<List<ClientDTO>> all(){
-
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.findAll());
+    public ResponseEntity<Page<ClientDTO>> all(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
+            @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
+            @RequestParam(value = "direction", defaultValue = "ASC") String direction
+    ){
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        Page<ClientDTO> clients = service.findAll(pageRequest);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(clients);
     }
 
     @GetMapping("/{id}")

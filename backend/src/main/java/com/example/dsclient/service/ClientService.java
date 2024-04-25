@@ -5,11 +5,11 @@ import com.example.dsclient.dto.ClientDTO;
 import com.example.dsclient.entities.Client;
 import com.example.dsclient.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class ClientService {
@@ -18,21 +18,19 @@ public class ClientService {
     private ClientRepository repository;
 
     @Transactional(readOnly = true)
-    public List<ClientDTO> findAll() {
-        List<ClientDTO> clientDTO = new ArrayList<>();
-        List<Client> entity = repository.findAll();
-        for (Client client : entity) {
-            clientDTO.add(new ClientDTO(client));
-        }
-        return clientDTO;
+    public Page<ClientDTO> findAll(PageRequest pageRequest) {
+        Page<Client> clients = repository.findAll(pageRequest);
+        return clients.map(client -> new ClientDTO(client));
     }
 
+    @Transactional(readOnly = true)
     public ClientDTO findById(Long id) {
         Client entity = repository.findById(id).get();
         ClientDTO entityDTO = new ClientDTO(entity);
         return entityDTO;
     }
 
+    @Transactional
     public ClientDTO save(ClientDTO clientDTO) {
         Client entity = new Client();
         copyDtoToEntity(clientDTO,entity);
@@ -40,6 +38,7 @@ public class ClientService {
         return new ClientDTO(entity);
     }
 
+    @Transactional
     public ClientDTO update(ClientDTO clientDTO, Long id) {
         Client entity = repository.findById(id).get();
         copyDtoToEntity(clientDTO,entity);
@@ -47,6 +46,7 @@ public class ClientService {
         return new ClientDTO(entity);
     }
 
+    @Transactional
     public void delete(Long id) {
         repository.deleteById(id);
     }
