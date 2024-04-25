@@ -1,12 +1,17 @@
-Documentação do projeto:  Linguagens e frameworks utilizados:  
+Documentação do projeto:  
 
-Java
-SQL
-Spring Boot
-Maven
+Linguagens e frameworks utilizados:  
+
+Java,
+SQL,
+Spring Boot,
+Maven,
 
 O projeto consiste em uma aplicação Spring Boot que gerencia clientes. Ele possui três camadas principais: recursos, serviços e entidades.  
-ClientResources.java: Esta é a camada de recursos que expõe endpoints REST para manipulação de dados do cliente. Os seguintes endpoints estão disponíveis:  
+
+ClientResources.java: Esta é a camada de recursos que expõe endpoints REST para manipulação de dados do cliente. 
+
+Os seguintes endpoints estão disponíveis:  
 
 GET /clients: Retorna uma lista paginada de clientes, com opções para ordenação e direção.
 
@@ -20,7 +25,9 @@ DELETE /clients/{id}: Exclui um cliente específico com base no ID fornecido.
 
 ClientService.java: Esta é a camada de serviço que contém a lógica de negócios para manipulação de dados do cliente. Ele usa o ClientRepository para interagir com o banco de dados.  
 
-Client.java: Esta é a camada de entidade que representa a tabela de clientes no banco de dados. A classe Client tem os seguintes campos:  
+Client.java: Esta é a camada de entidade que representa a tabela de clientes no banco de dados. 
+
+A classe Client tem os seguintes campos:  
 
 id: O identificador único do cliente.
 name: O nome do cliente.
