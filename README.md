@@ -49,7 +49,7 @@ DELETE /clients/{id} - Delete a customer by id
   "name": "Gabriel",
   "cpf": "123.456.897-21",
   "income": 2000,
-  "birth_Date": 2002/01/07,
+  "birth_Date": 2002-01-07,
   "children": 1
 }
 ```
